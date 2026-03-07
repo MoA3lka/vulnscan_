@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Last Scan Result </h2>
+{% if latest_device %}
+
+<p>
+    Result for IP Address: <strong>{{ latest_device.ip_address }}</strong>
+</p>
+
+<p>
+    Scan Completed on: {{ latest_device.last_scan}}
+</p>
+
+<div class="table-box">
+    <h3>Ports Scanned</h3>
+
+    <table>
+        <tr>
+            <th>Ports</th>
+            <th>Risk Level</th>
+            <th>Status</th>
+        </tr>
+
+        {% for r in latest_results %}
+
+        <tr>
+            <td>{{ r.port }}</td>
+            <td><span class="{{ r.risk_level|lower }}">{{ r.risk_level }}</span></td>
+            <td>Open</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+     {% endif %}
+
+    <br><br>
+    <div class="table-box">
+        <h3>All Scanned Network Results</h3>
+        <table>
+            <tr>
+                <th>IP Address</th>
+                <th>Ports</th>
+                <th>Risk Level</th>
+                <th>Status</th>
+                <th>Time Completed</th>
+            </tr>
+            {% for r in all_results %}
+            <tr>
+                <td>{{ r.device.ip_address}}</td>
+                <td>{{ r.port }}</td>
+                <td><span class="{{ r.risk_level|lower }}">{{ r.risk_level }}</span></td>                <td>Open</td>
+                <td>{{ r.timestamp }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    {% endblock %}

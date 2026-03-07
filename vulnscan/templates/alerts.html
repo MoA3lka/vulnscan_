@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Alerts</h2>
+
+<p>High Risk Vulnerabilities Detected Druing Netwokr Scan</p>
+
+<div class="table-box">
+    <table>
+        <tr>
+            <th>IP Address</th>
+            <th>Port</th>
+            <th>Risk Level</th>
+            <th>Status</th>
+        </tr>
+        {% for alert in alerts %}
+
+        <tr>
+            <td>{{ alert.result.device.ip_address}}</td>
+            <td>{{ alert.result.port }}</td>
+            <td><span class="{{ alert.severity|lower }}">{{ alert.severity }}</span></td>
+            <td>{{ alert.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

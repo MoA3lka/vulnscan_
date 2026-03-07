@@ -1,8 +1,28 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from .models import Device, ScanResults, Alert
 from .port_scan import scan_ports
 from .risk_level import classify_risk
+
+
+#login page
+@login_required
+def login_view(request):
+
+    if request.method == "POST":
+
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect("dashboard")
+        
+
+    return render(request, "login.html")
 
 # Dashboard Page
 @login_required
@@ -11,7 +31,7 @@ def dashboard(request):
     # Statistics
     total_devices = Device.objects.count()
     total_ports = ScanResults.objects.count()
-    total_alerts = Alert.objects.filter(severity="High").count
+    total_alerts = Alert.objects.filter(severity="High").count()
 
     # Recent Results
     results = ScanResults.objects.order_by('-timestamp')[:5]
@@ -35,7 +55,7 @@ def dashboard(request):
 @login_required
 def start_scan(request):
 
-    if request.method =="POST":
+    if request.method == "POST":
 
         ip = request.POST.get("ip")
 
@@ -63,20 +83,35 @@ def start_scan(request):
                     severity="High"
                 )
 
-                return redirect("results")
+        return redirect("Scan_Result")
             
-            return render(request, "start_scan.html")
+    return render(request, "start_scan.html")
         
 # Scan Results Page
 
 @login_required
 def results(request):
 
-    results = ScanResults.objects.all().order_by('-timestamp')
+    latest_device = Device.objects.order_by('-last_scan').first()
 
-    return render(request, "scan_results.html", {
-        "results": results
-    })
+    latest_results = None
+
+    if latest_device:
+        latest_results = ScanResults.objects.filter(device=latest_device)
+
+
+    devices = Device.objects.all().order_by('-last_scan')
+    all_results = ScanResults.objects.all().order_by('-timestamp')
+
+    context = {
+        "latest_device": latest_device,
+        "latest_results": latest_results,
+        "devices": devices,
+        "all_results": all_results
+
+    }
+
+    return render(request, "Scan_Result.html", context)
 
 # Alert Page
 @login_required
@@ -84,6 +119,7 @@ def alerts(request):
 
     alerts = Alert.objects.filter(severity="High").order_by('-id')
 
+    context = {"alerts: alrrts"}
     return render(request, "alerts.html",{
         "alerts": alerts
     })

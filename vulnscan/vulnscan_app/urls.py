@@ -1,12 +1,17 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    path('',views.dashboard, name="dashboard"),    
-    path('',views.start_scan, name="scan"),   
-    path('',views.results, name="results"),    
-    path('',views.alerts, name="alerts"),
+    path('', views.login_view, name='login'),
+    path('login/',views.login_view, name="login"),   
+
+    path('dashboard/',views.dashboard, name="dashboard"),    
+
+    path('start_scan/',views.start_scan, name="start_scan"),   
+    path('Scan_Result/',views.results, name="Scan_Result"),    
+    path('alerts/',views.alerts, name="alerts"),
     
 ]
 

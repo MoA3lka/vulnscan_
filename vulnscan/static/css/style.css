@@ -25,14 +25,18 @@ body{
 }
 
 .logo{
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bold;
+    text-shadow:0 0 12px rgba(255,255,255,0.4);
+
 }
 .nav-links a{
     color: white;
     margin-left: 25px;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 20px;
+    text-shadow:0 0 12px rgba(255,255,255,0.4);
+
 }
 
 .nav-links a:hover{
@@ -137,6 +141,8 @@ td{
     background: #1b6fd1;
 }
 
+
+
 /* Risk Labels */
 
 .low{
@@ -160,4 +166,74 @@ td{
     padding: 4px 10px;
     border-radius: 5px;
     font-size: 12px;
+}
+/* Login Page */
+
+.login-page{
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    background-size:auto;
+
+}
+
+/* login layout */
+
+.login-container{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+/* title */
+
+.headline{
+    font-size:50px;
+    color:white;
+    letter-spacing:2px;
+    text-shadow:0 0 12px rgba(255,255,255,0.4);
+    text-align: center;
+    margin-bottom: -55px;
+    position: relative;
+    top: 200px;
+}
+
+/* login card */
+
+.login-box{
+    background:white;
+    padding:40px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.35);
+    border-radius:10px;
+    text-align:auto;
+    width:350px;
+}
+
+/* inputs */
+
+.login-box input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:5px;
+    margin-top:15px;
+    padding-left: 10px;
+}
+
+/* button */
+
+.login-box button{
+    width:100%;
+    padding:12px;
+    background:#1f5f78;
+    cursor:pointer;
+    color:white;
+    border:none;
+    border-radius:5px;
+    margin-top:18px;
+    font-size:15px;
+}
+
+.login-box button:hover{
+    background:#17485b;
 }

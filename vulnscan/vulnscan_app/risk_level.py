@@ -1,12 +1,21 @@
+import socket
+
 def classify_risk(port):
 
-    high_risk = [23,445,3389]
-    medium_risk = [21]
+    try:
+        service = socket.getservbyport(port)
 
-    if port in high_risk:
+    except:
+        service = "unknow"
+
+    high_service = ["telnet","ftp","smb","betbios-ssn","microsfot-ds","rdp","ssh"]
+    medium_service = ["http","https"]
+
+
+    if service in high_service:
         return "High"
     
-    elif port in medium_risk:
+    elif service in medium_service:
         return "Medium"
     
     else:

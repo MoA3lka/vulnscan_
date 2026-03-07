@@ -32,8 +32,7 @@
             <tr>
                 <td>{{ r.device.ip_address }}</td>
                 <td>{{ r.port }}</td>
-                <td>{{ r.risk_level }}</td>
-            </tr>
+                <td><span class="{{ r.risk_level|lower }}">{{ r.risk_level }}</span></td>            </tr>
             {% endfor %}
 
         </table>
@@ -54,32 +53,13 @@
          {% for r in alerts %}
 
         <tr>
-        <td>{{ r.device.ip_address }}</td>
-        <td>{{ r.port }}</td>
-        <td>
-            <span class="{{ r.risk_level|lower }}">
-                {{ r.risk_level }}
-            </span>
-        </td>
+        <td>{{ r.result.device.ip_address }}</td>
+        <td>{{ r.result.port }}</td>
+        <td><span class="{{ r.severity|lower }}">{{ r.severity }}</span></td>
         </tr>
         {% endfor %}
     </table>
 </div>
-</div>
-
-
-
-<div class="scan-box">
-    <h3>Scan a New Device</h3>
-    <form method="POST" action="/scan/">
-
-        {% csrf_token %}
-
-        <input type="text" name="ip" placeholder="Enter IP Address">
-
-        <button type="submit">Start Scan</button>
-
-    </form>
 </div>
 
 {% endblock %}

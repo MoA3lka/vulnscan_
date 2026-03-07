@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="scan-box">
+    <h2>Start NetWork Scan</h2>
+    <form method="post">
+        {% csrf_token %}
+
+        <label> Enter IP Address: </label>
+        <input type="text" name="ip" placeholder="Example: 192.168.1.1" required>
+        <button type="submit">Start Scan</button>
+    </form>
+</div>
+
+{% endblock %}
