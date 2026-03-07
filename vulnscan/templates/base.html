@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>VULNSCAN</title>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">VULNSCAN</div>
+        
+        <div class="nav-links">
+            <a href="/">Dashboard</a>
+            <a href="/">Start Scan</a>
+            <a href="/">Scan Results</a>
+            <a href="/">Alerts</a>
+        </div>
+
+    </div>
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+
+</html>

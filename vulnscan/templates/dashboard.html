@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="stats">
+    <div class="card">
+        <h3>Total Devices Scanned</h3>
+        <p>{{ total_devices }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Open Ports Detected</h3>
+        <p>{{ total_ports }}</p>
+    </div>   
+    <div class="card">
+        <h3>High Risk Alerts</h3>
+        <p>{{ total_alerts }}</p>
+    </div>
+</div>
+
+<div class="tables">
+    <div class="table-box">
+        <h3>Recent Scan Results</h3>
+        <table>
+            <tr>
+                <th>IP Address</th>
+                <th>Port</th>
+                <th>Risk</th>
+            </tr>
+            {% for r in results %}
+
+            <tr>
+                <td>{{ r.device.ip_address }}</td>
+                <td>{{ r.port }}</td>
+                <td>{{ r.risk_level }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+
+
+<div class="table-box">
+    <h3>High Risk Alerts</h3>
+    <table>
+        <tr>
+            <th>IP Address</th>
+            <th>Port </th>
+            <th>Risk Level</th>
+        </tr>
+
+         {% for r in alerts %}
+
+        <tr>
+        <td>{{ r.device.ip_address }}</td>
+        <td>{{ r.port }}</td>
+        <td>
+            <span class="{{ r.risk_level|lower }}">
+                {{ r.risk_level }}
+            </span>
+        </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</div>
+
+
+
+<div class="scan-box">
+    <h3>Scan a New Device</h3>
+    <form method="POST" action="/scan/">
+
+        {% csrf_token %}
+
+        <input type="text" name="ip" placeholder="Enter IP Address">
+
+        <button type="submit">Start Scan</button>
+
+    </form>
+</div>
+
+{% endblock %}
