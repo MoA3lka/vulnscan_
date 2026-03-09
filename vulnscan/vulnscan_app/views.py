@@ -5,7 +5,9 @@ from .models import Device, ScanResults, Alert
 from .port_scan import scan_ports
 from .risk_level import classify_risk
 import socket
+import ipaddress
 
+    
 #login page
 @login_required
 def login_view(request):
@@ -53,51 +55,45 @@ def dashboard(request):
 # validate ip/ hostname
 def validate_target(target):
     try:
-        socket.gethostbyname(target)
+        ipaddress.ip_address(target)
         return True
-    except:
+    except ValueError:
         return False
     
-# Start Scan Page
 @login_required
 def start_scan(request):
 
     if request.method == "POST":
 
-        ip = request.POST.get("ip")
+        ip = request.POST.get("ip_address", "").strip()
 
-        # validate input
+        print("IP received:", ip)
+
+        if not ip:
+            return render(request, "start_scan.html", {
+                "error": "Please enter an IP address"
+            })
+
         if not validate_target(ip):
             return render(request, "start_scan.html", {
-                "error": "Invalid IP address or domain"
+                "error": "Enter a valid IP address"
             })
-        
-        # Save Device
+
         device = Device.objects.create(ip_address=ip)
 
-        # Run Scanner
         ports = scan_ports(ip)
 
         for port in ports:
-
             risk = classify_risk(port)
 
-            # Save scan result
             result = ScanResults.objects.create(
                 device=device,
                 port=port,
                 risk_level=risk
             )
 
-            # Create alert if high risk
-            if risk == "High":
-                Alert.objects.create(
-                    result=result,
-                    severity="High"
-                )
-
         return redirect("Scan_Result")
-            
+
     return render(request, "start_scan.html")
         
 # Scan Results Page
