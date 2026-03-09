@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from .models import Device, ScanResults, Alert
 from .port_scan import scan_ports
 from .risk_level import classify_risk
-
+import socket
 
 #login page
 @login_required
@@ -50,7 +50,14 @@ def dashboard(request):
 
     return render(request,"dashboard.html",context)
 
-
+# validate ip/ hostname
+def validate_target(target):
+    try:
+        socket.gethostbyname(target)
+        return True
+    except:
+        return False
+    
 # Start Scan Page
 @login_required
 def start_scan(request):
@@ -59,6 +66,12 @@ def start_scan(request):
 
         ip = request.POST.get("ip")
 
+        # validate input
+        if not validate_target(ip):
+            return render(request, "start_scan.html", {
+                "error": "Invalid IP address or domain"
+            })
+        
         # Save Device
         device = Device.objects.create(ip_address=ip)
 
@@ -119,7 +132,7 @@ def alerts(request):
 
     alerts = Alert.objects.filter(severity="High").order_by('-id')
 
-    context = {"alerts: alrrts"}
+    context = {"alerts: alerts"}
     return render(request, "alerts.html",{
         "alerts": alerts
     })
