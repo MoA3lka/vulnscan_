@@ -3,7 +3,7 @@
 {% block content %}
 
 <h2>Last Scan Result </h2>
-{% if latest_device %}
+{% if latest_results %}
 
 <p>
     Result for IP Address: <strong>{{ latest_device.ip_address }}</strong>
@@ -33,6 +33,8 @@
         {% endfor %}
     </table>
     </div>
+        {% else %}
+    <p>No open ports detected or host unreachable.</p>
      {% endif %}
 
     <br><br>
