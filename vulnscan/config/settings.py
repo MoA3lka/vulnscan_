@@ -127,8 +127,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
