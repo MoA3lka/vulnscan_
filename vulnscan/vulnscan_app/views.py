@@ -8,7 +8,6 @@ import socket
 import ipaddress
 
     
-#login page
 def login_view(request):
 
     if request.method == "POST":
