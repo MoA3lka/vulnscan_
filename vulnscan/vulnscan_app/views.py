@@ -8,6 +8,7 @@ import socket
 import ipaddress
 
     
+#login page
 def login_view(request):
 
     if request.method == "POST":
@@ -24,7 +25,7 @@ def login_view(request):
     return render(request, "login.html")
 
 # Dashboard Page
-
+@login_required
 def dashboard(request):
 
     # Statistics
@@ -57,6 +58,7 @@ def validate_target(target):
     except ValueError:
         return False
     
+@login_required
 def start_scan(request):
 
     if request.method == "POST":
@@ -94,7 +96,7 @@ def start_scan(request):
         
 # Scan Results Page
 
-
+@login_required
 def results(request):
 
     latest_device = Device.objects.order_by('-last_scan').first()
@@ -119,7 +121,7 @@ def results(request):
     return render(request, "Scan_Result.html", context)
 
 # Alert Page
-
+@login_required
 def alerts(request):
 
     alerts = Alert.objects.filter(severity="High").order_by('-id')
