@@ -125,8 +125,3 @@ STATIC_URL = 'static/'
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
-
-ALLOWED_HOSTS = ['*']
-
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
