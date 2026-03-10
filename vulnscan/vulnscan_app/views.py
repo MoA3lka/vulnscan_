@@ -9,7 +9,6 @@ import ipaddress
 
     
 #login page
-@login_required
 def login_view(request):
 
     if request.method == "POST":
@@ -128,7 +127,7 @@ def alerts(request):
 
     alerts = Alert.objects.filter(severity="High").order_by('-id')
 
-    context = {"alerts: alerts"}
+    context = {"alerts": alerts}
     return render(request, "alerts.html",{
         "alerts": alerts
     })
