@@ -126,3 +126,4 @@ STATIC_URL = 'static/'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
+ALLOWED_HOSTS = ['*']
