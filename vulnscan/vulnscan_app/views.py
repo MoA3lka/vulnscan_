@@ -22,6 +22,8 @@ def login_view(request):
             login(request, user)
             return redirect("dashboard")
         
+        else:
+            return render(request, "login.html", {"error": "Invalid login"})
 
     return render(request, "login.html")
 
