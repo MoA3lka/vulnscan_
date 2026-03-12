@@ -237,3 +237,10 @@ td{
 .login-box button:hover{
     background:#17485b;
 }
+
+.title{
+    text-align: center;
+    font-size:50px;
+    color:black;
+    letter-spacing:2px;
+}
