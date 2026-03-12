@@ -1,6 +1,11 @@
     VULNSCAN
 Web-Based Vulnerability Scanner
 
+How to run python manage.py runserver:
+cd vulnscan
+then should be able to run the command python manage.py runserver
+vulnscan_ is folder that contains the files but main folder is vulnscan
+
 Project Overview
 This project is a web-based vulnerability scanning system developed using the Django framework and Python. The system allows users to input an IP address and perform a network scan to detect open ports and potential security risks. Based on the detected ports, the system automatically classifies the risk level of the scanned device as Low, Medium, or High.
 
